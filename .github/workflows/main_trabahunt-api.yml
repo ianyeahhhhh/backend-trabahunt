@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'trabahunt-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BF7E7DA6871E4519AD635078958A7291 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A92AC1B9B65F428F8E82A1DBC9BFFE2B }}
           package: .
