@@ -43,7 +43,7 @@ async def get_all(db: Session = Depends(get_db)
         User_Account.user_account_type == 'Employer').all()
 
     return data
-
+    
 
 @router.get('/{id}')
 async def get_one(id: int, db: Session = Depends(get_db)):
