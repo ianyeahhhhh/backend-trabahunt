@@ -39,7 +39,6 @@ async def create(req: Company_Addition_Info_Form, db: Session = Depends(get_db))
         region=req.region,
         zip_code=req.zip_code,
         city=req.city,
-        company_contact_number=req.company_contact_number
     )
     db.add(column)
     db.commit()
@@ -59,7 +58,6 @@ async def create(req: Company_Addition_Info_Form, db: Session = Depends(get_db))
             'region': column.region,
             'zip_code': column.zip_code,
             'city': column.city,
-            'company_contact_number': column.company_contact_number,
             'user_account_id': column.user_account_id,
             'created_by': column.created_by,
             'updated_by': column.updated_by,
@@ -83,7 +81,6 @@ async def update(id: int, req: Company_Addition_Info_Form, db: Session = Depends
         column.region = req.region
         column.zip_code = req.zip_code
         column.city = req.city
-        column.company_contact_number = req.company_contact_number
         column.user_account_id = req.user_account_id
         column.updated_at = datetime.now()
 
@@ -96,7 +93,6 @@ async def update(id: int, req: Company_Addition_Info_Form, db: Session = Depends
                 'region': column.region,
                 'zip_code': column.zip_code,
                 'city': column.city,
-                'company_contact_number': column.company_contact_number,
                 'updated_by': column.updated_by,
                 'updated_at': column.updated_at
             }

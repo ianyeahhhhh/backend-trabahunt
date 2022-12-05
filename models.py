@@ -60,7 +60,7 @@ class Candidate_Profile(Base):
     region = Column(String(255))
     country = Column(String(255))
     nationality = Column(String(255))
-    status_from_hr = Column(String(255))
+    review_status = Column(String(255))
     candidate_image = Column(String(255))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
@@ -122,7 +122,7 @@ class Company_Profile(Base):
     establishment_date = Column(String(255))
     company_website_url = Column(String(255))
     company_logo = Column(String(255))
-    company_status = Column(String(100), default='Active')
+    review_status = Column(String(100))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
@@ -140,7 +140,6 @@ class Company_Addition_Info(Base):
     region = Column(String(255))
     zip_code = Column(String(255))
     city = Column(String(255))
-    company_contact_number = Column(String(255))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
