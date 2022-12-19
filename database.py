@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 # SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/trabahunt"
 
 # RENDER
-SQLALCHEMY_DATABASE_URL = "postgresql://ian:nV90iu8PyBTjIqajJv2mFzNOmvYjDc0M@dpg-ce6vme4gqg494147bo3g-a.singapore-postgres.render.com/trabahunt_6xbp"
+SQLALCHEMY_DATABASE_URL = "postgresql://ian:TG1hCECQhtfsR9kDL9BWyrVGMt5gj6yl@dpg-ceg6rgg2i3mum5oful6g-a.singapore-postgres.render.com/trabahunt_i9s8"
 
 
 # FORMAT

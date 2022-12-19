@@ -2,7 +2,6 @@ from datetime import datetime
 from fastapi import APIRouter, Depends
 
 from fastapi import File, UploadFile
-import secrets
 from fastapi.staticfiles import StaticFiles
 
 from sqlalchemy.orm import Session
@@ -12,6 +11,7 @@ from hashing import Hash
 from models import Files
 from oauth2 import get_current_user
 from schemas import Files_Form
+
 router = APIRouter(
     prefix='/files',
     tags=['Files']

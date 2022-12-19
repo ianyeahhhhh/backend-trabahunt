@@ -322,9 +322,6 @@ class Files(Base):
 
     file_id = Column(Integer, primary_key=True, index=True)
     file_name = Column(String(255))
-    file_content = Column(String(100000))
-    created_by = Column(Integer)
-    updated_by = Column(Integer)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
