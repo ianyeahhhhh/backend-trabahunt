@@ -44,7 +44,7 @@ class Candidate_Profile_Form(BaseModel):
     country: str
     nationality: str
     candidate_image: str
-    status_from_hr: str
+    review_status: str
 
     class Config:
         orm_mode = True
@@ -88,6 +88,7 @@ class Company_Profile_Form(BaseModel):
     establishment_date: str
     company_website_url: str
     company_logo: str
+    review_status: str
 
     class Config:
         orm_mode = True
@@ -100,7 +101,6 @@ class Company_Addition_Info_Form(BaseModel):
     region: str
     zip_code: str
     city: str
-    company_contact_number: str
 
     class Config:
         orm_mode = True

@@ -3,15 +3,6 @@ import models
 import schemas
 from database import engine
 
-# UPLOAD FILE
-from fastapi import File, UploadFile
-import secrets
-from fastapi.staticfiles import StaticFiles
-from fastapi import Depends
-from database import get_db
-from sqlalchemy.orm import Session
-from datetime import datetime
-
 from router import authentication
 from router import user_account_router
 from router import candidate_profile_router, candidate_education_detail_router, candidate_experience_detail_router, candidate_resume_router
@@ -20,7 +11,7 @@ from router import admin_profile_router, admin_login_router
 from router import session_info_router
 from router import job_post_router, job_additional_info_router, job_location_router, job_application_router
 from router import interview_info_router, employee_info_router, job_offer_router
-from router import request_form_router
+from router import request_form_router, for_HR_router, aws_files_router
 
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
@@ -40,54 +31,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# File Upload
-# static file setup config
-app.mount('/static', StaticFiles(directory='static'), name='static')
-
-
-@app.post('/file_upload')
-async def file_upload(file: UploadFile = File(...), db: Session = Depends(get_db), ):
-    flag = 0
-    FILEPATH = './static/files/'
-    filename = file.filename
-    extension = filename.split('.')[1]
-
-    if extension not in ['pdf']:
-        return {
-            'status': 'error',
-            'detail': 'File extension not allowed'
-        }
-
-    token_name = secrets.token_hex(10)+'.'+extension
-    generated_name = FILEPATH + token_name
-    file_content = await file.read()
-
-    with open(generated_name, 'wb') as file:
-        file.write(file_content)
-        flag = 1
-
-    file.close()
-    file_url = 'localhost:8000' + generated_name[1:]
-
-    column = models.Files(
-        file_name=generated_name,
-        file_content=file_content
-    )
-    db.add(column)
-    db.commit()
-    
-    column.created_at = datetime.now()
-    column.updated_at = datetime.now()
-    db.commit()
-
-    return {
-        'msg': 'File UPLOADED.',
-        'data': {
-            'file_url': file_url,
-            'flag': flag
-        }
-    }
 
 
 # TOKEN.PY
@@ -116,6 +59,8 @@ def verify_token(token: str, credentials_exception):
 
 
 # Include routers
+app.include_router(aws_files_router.router)
+app.include_router(for_HR_router.router)
 app.include_router(admin_login_router.router)
 app.include_router(admin_profile_router.router)
 app.include_router(session_info_router.router)

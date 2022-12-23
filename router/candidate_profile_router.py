@@ -49,7 +49,7 @@ async def create(req: Candidate_Profile_Form, db: Session = Depends(get_db)):
         region=req. region,
         country=req.country,
         nationality=req.nationality,
-        status_from_hr=req.status_from_hr,
+        review_status=req.review_status,
         candidate_image=req.candidate_image
     )
 
@@ -80,7 +80,7 @@ async def create(req: Candidate_Profile_Form, db: Session = Depends(get_db)):
             'country': column.country,
             'nationality': column.nationality,
             'candidate_image': column.candidate_image,
-            'status_from_hr': column.status_from_hr,
+            'review_status': column.review_status,
             'user_account_id': column.user_account_id,
             'created_by': column.created_by,
             'updated_by': column.updated_by,
@@ -114,7 +114,7 @@ async def update(id: int, req: Candidate_Profile_Form, db: Session = Depends(get
         column.country = req.country
         column.nationality = req.nationality
         column.candidate_image = req.candidate_image
-        column.status_from_hr = req.status_from_hr
+        column.review_status = req.review_status
         column.updated_at = datetime.now()
 
         db.commit()
@@ -135,7 +135,7 @@ async def update(id: int, req: Candidate_Profile_Form, db: Session = Depends(get
                 'country': column.country,
                 'nationality': column.nationality,
                 'candidate_image': column.candidate_image,
-                'status_from_hr': column.status_from_hr,
+                'review_status': column.review_status,
                 'updated_by': column.updated_by,
                 'updated_at': column.updated_at
             }
@@ -151,9 +151,9 @@ async def update(id: int, db: Session = Depends(get_db)):
         Candidate_Profile.user_account_id == id).first()
 
     if column:
-        column.status_from_hr = 'Transferred'
+        column.review_status = 'Transferred'
         db.commit()
-        return{
+        return {
             'msg': 'Candidate Transferred'
         }
 
@@ -166,9 +166,10 @@ async def update(id: int, db: Session = Depends(get_db)):
     if column:
         column.candidate_type = 'Direct Hire'
         db.commit()
-        return{
+        return {
             'msg': 'Candidate set to Direct Hire'
         }
+
 
 @router.put('/toagency/{id}')
 async def update(id: int, db: Session = Depends(get_db)):
@@ -178,8 +179,19 @@ async def update(id: int, db: Session = Depends(get_db)):
     if column:
         column.candidate_type = 'Agency'
         db.commit()
-        return{
+        return {
             'msg': 'Candidate set to Agency'
         }
 
 
+@router.put('/grantaccess/{id}')
+async def update(id: int, db: Session = Depends(get_db)):
+    column = db.query(Candidate_Profile).filter(
+        Candidate_Profile.user_account_id == id).first()
+
+    if column:
+        column.review_status = 'Active'
+        db.commit()
+        return {
+            'msg': 'Candidate Activated'
+        }
