@@ -11,7 +11,7 @@ from router import admin_profile_router, admin_login_router
 from router import session_info_router
 from router import job_post_router, job_additional_info_router, job_location_router, job_application_router
 from router import interview_info_router, employee_info_router, job_offer_router
-from router import request_form_router, for_HR_router, aws_files_router
+from router import request_form_router, for_HR_router
 
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
@@ -59,7 +59,7 @@ def verify_token(token: str, credentials_exception):
 
 
 # Include routers
-app.include_router(aws_files_router.router)
+# app.include_router(aws_files_router.router)
 app.include_router(for_HR_router.router)
 app.include_router(admin_login_router.router)
 app.include_router(admin_profile_router.router)
