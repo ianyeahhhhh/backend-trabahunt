@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 # SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/trabahunt"
 
 # RENDER
-SQLALCHEMY_DATABASE_URL = "postgresql://ian:TG1hCECQhtfsR9kDL9BWyrVGMt5gj6yl@dpg-ceg6rgg2i3mum5oful6g-a.singapore-postgres.render.com/trabahunt_i9s8"
+SQLALCHEMY_DATABASE_URL = "postgresql://ian:aaMELA9fvfHCQ5RBg0OlNxsfutzKa1sX@dpg-ceue3iirrk0bnkto3cgg-a.singapore-postgres.render.com/trabahunt_d9oa"
 
 
 # FORMAT
