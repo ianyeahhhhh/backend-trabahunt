@@ -22,6 +22,14 @@ async def get_all(db: Session = Depends(get_db)):
     return data
 
 
+# get one
+@router.get('/{id}')
+async def get_one(id: int, db: Session = Depends(get_db)):
+    data = data = db.query(Candidate_Resume).filter(
+        Candidate_Resume.user_account_id == id).first()
+    return data
+
+
 # post or create
 @router.post('/')
 async def create(req: Candidate_Resume_Form, db: Session = Depends(get_db)):
@@ -44,7 +52,7 @@ async def create(req: Candidate_Resume_Form, db: Session = Depends(get_db)):
 # update
 @router.put('/{id}')
 async def update(id: int, req: Candidate_Resume_Form, db: Session = Depends(get_db)
-                # , current_user: Login_Form = Depends(get_current_user)
+                 # , current_user: Login_Form = Depends(get_current_user)
                  ):
     data = db.query(Candidate_Resume).filter(
         Candidate_Resume.user_account_id == id).first()

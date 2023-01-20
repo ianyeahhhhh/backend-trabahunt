@@ -28,6 +28,7 @@ async def get_one(id: int, db: Session = Depends(get_db)):
     return data
 
 
+#All Requests of a specific Employer
 @router.get('/all_requests/{id}')
 async def get_all_requests(id: int, db: Session = Depends(get_db)):
     data = db.query(Request_Form).filter(

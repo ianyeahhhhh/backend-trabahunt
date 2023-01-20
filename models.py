@@ -60,7 +60,7 @@ class Candidate_Profile(Base):
     region = Column(String(255))
     country = Column(String(255))
     nationality = Column(String(255))
-    status_from_hr = Column(String(255))
+    review_status = Column(String(255))
     candidate_image = Column(String(255))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
@@ -122,7 +122,7 @@ class Company_Profile(Base):
     establishment_date = Column(String(255))
     company_website_url = Column(String(255))
     company_logo = Column(String(255))
-    company_status = Column(String(100), default='Active')
+    review_status = Column(String(100))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
@@ -140,7 +140,6 @@ class Company_Addition_Info(Base):
     region = Column(String(255))
     zip_code = Column(String(255))
     city = Column(String(255))
-    company_contact_number = Column(String(255))
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
@@ -167,6 +166,18 @@ class Company_Subscription(Base):
     package_id = Column(Integer)
     updated_by = Column(Integer)
     created_by = Column(Integer)
+
+
+class Company_Legal_Document(Base):
+    __tablename__ = "company_legal_document"
+
+    company_legal_document_id = Column(Integer, primary_key=True, index=True)
+    user_account_id = Column(Integer)
+    legal_document = Column(String)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
 
 
 class Payment(Base):
@@ -323,9 +334,6 @@ class Files(Base):
 
     file_id = Column(Integer, primary_key=True, index=True)
     file_name = Column(String(255))
-    file_content = Column(String(100000))
-    created_by = Column(Integer)
-    updated_by = Column(Integer)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
@@ -348,3 +356,7 @@ class Request_Form(Base):
     updated_by = Column(Integer)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
+
+#
+#
+# new candidate fields :(

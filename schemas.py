@@ -44,7 +44,7 @@ class Candidate_Profile_Form(BaseModel):
     country: str
     nationality: str
     candidate_image: str
-    status_from_hr: str
+    review_status: str
 
     class Config:
         orm_mode = True
@@ -61,7 +61,7 @@ class Candidate_Education_Detail_Form(BaseModel):
 
     class Config:
         orm_mode = True
-    
+
 
 class Candidate_Experience_Detail_Form(BaseModel):
     user_account_id: int
@@ -88,6 +88,7 @@ class Company_Profile_Form(BaseModel):
     establishment_date: str
     company_website_url: str
     company_logo: str
+    review_status: str
 
     class Config:
         orm_mode = True
@@ -100,11 +101,10 @@ class Company_Addition_Info_Form(BaseModel):
     region: str
     zip_code: str
     city: str
-    company_contact_number: str
 
     class Config:
         orm_mode = True
-        
+
 
 class Company_Subscription_Form(BaseModel):
     subscription_date: str
@@ -116,6 +116,14 @@ class Company_Subscription_Form(BaseModel):
     company_id: int
     package_id: int
     user_account_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class Company_Legal_Document_Form(BaseModel):
+    user_account_id: int
+    legal_document: str
 
     class Config:
         orm_mode = True
@@ -206,14 +214,13 @@ class Job_Offer_Form(BaseModel):
     country: str
     job_offer_description: str
     job_offer_status: str
-    interview_info_id : int
-    company_id : int
+    interview_info_id: int
+    company_id: int
     created_by: int
     updated_by: int
 
     class Config:
         orm_mode = True
-
 
 
 class Payment_Form(BaseModel):
@@ -249,6 +256,10 @@ class Request_Form_Form(BaseModel):
         orm_mode = True
 
 
+class AWS_Form(BaseModel):
+    filename: str
+
+
 class Login_Form(BaseModel):
     username: str
     password: str
@@ -262,3 +273,6 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: Optional[str] = None
 
+##
+##
+# new candidate

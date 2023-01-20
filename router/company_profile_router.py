@@ -17,8 +17,7 @@ router = APIRouter(
 # get all active
 @router.get('/')
 async def get_all(db: Session = Depends(get_db)):
-    data = db.query(Company_Profile).filter(
-        Company_Profile.company_status == 'Active').all()
+    data = db.query(Company_Profile).all()
 
     return data
 
@@ -40,7 +39,8 @@ async def create(req: Company_Profile_Form, db: Session = Depends(get_db)):
         profile_description=req.profile_description,
         establishment_date=req.establishment_date,
         company_website_url=req.company_website_url,
-        company_logo=req.company_logo
+        company_logo=req.company_logo,
+        review_status=req.review_status
     )
     db.add(column)
     db.commit()
@@ -60,7 +60,8 @@ async def create(req: Company_Profile_Form, db: Session = Depends(get_db)):
             'establishment_date': column.establishment_date,
             'company_website_url': column.company_website_url,
             'company_logo': column.company_logo,
-            'user_account_id': column.user_account_id
+            'user_account_id': column.user_account_id,
+            'review_status': column.review_status
         }
     }
 
@@ -68,32 +69,30 @@ async def create(req: Company_Profile_Form, db: Session = Depends(get_db)):
 # update
 @router.put('/{id}')
 async def update(id: int, req: Company_Profile_Form, db: Session = Depends(get_db)
-                # , current_user: Login_Form = Depends(get_current_user)
-                ):
+                 # , current_user: Login_Form = Depends(get_current_user)
+                 ):
     column = db.query(Company_Profile).filter(
         Company_Profile.user_account_id == id).first()
 
     if column:
-        if column.company_status == 'Active':
-            column.company_name = req.company_name
-            column.profile_description = req.profile_description
-            column.establishment_date = req.establishment_date
-            column.company_website_url = req.company_website_url
-            column.company_logo = req.company_logo
-            column.user_account_id = req.user_account_id
-            column.updated_at = datetime.now()
+        column.company_name = req.company_name
+        column.profile_description = req.profile_description
+        column.establishment_date = req.establishment_date
+        column.company_website_url = req.company_website_url
+        column.company_logo = req.company_logo
+        column.user_account_id = req.user_account_id
+        column.updated_at = datetime.now()
+        column.review_status = req.review_status
 
-            db.commit()
-            return {
-                'msg': 'Employer/Company info updated.',
-                'company_name': column.company_name,
-                'profile_description': column.profile_description,
-                'establishment_date': column.establishment_date,
-                'company_website_url': column.company_website_url,
-                'company_logo': column.company_logo
-            }
+        db.commit()
         return {
-            'msg': 'Cannot update information. Employer/Company is deactivated.'
+            'msg': 'Employer/Company info updated.',
+            'company_name': column.company_name,
+            'profile_description': column.profile_description,
+            'establishment_date': column.establishment_date,
+            'company_website_url': column.company_website_url,
+            'company_logo': column.company_logo,
+            'review_status': column.review_status
         }
     return {
         'msg': 'Employer/Company cannot be found.'
@@ -107,17 +106,27 @@ async def delete(id: int, db: Session = Depends(get_db)):
         Company_Profile.company_id == id).first()
 
     if column:
-        if column.company_status == 'Active':
-            column.company_status = 'Inactive'
+        column.review_status = 'Inactive'
 
-            db.commit()
-            return {
-                'msg': 'Employer/Company deactivated.',
-                'company_name': column.company_name
-            }
+        db.commit()
         return {
-            'msg': 'Employer/Company is already deactivated.'
+            'msg': 'Employer/Company deactivated.',
+            'company_name': column.company_name
         }
     return {
         'msg': 'Employer/Company cannot be found.'
     }
+
+
+@router.put('/grantaccess/{id}')
+async def update(id: int, db: Session = Depends(get_db)):
+    column = db.query(Company_Profile).filter(
+        Company_Profile.user_account_id == id).first()
+
+    if column:
+        column.review_status = 'Active'
+        db.commit()
+        return {
+            'msg': 'Company Activated'
+        }
+
