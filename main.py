@@ -3,15 +3,18 @@ import models
 import schemas
 from database import engine
 
-from router import authentication, candidate_experience_detail_router
+from router import authentication
 from router import user_account_router
-from router import candidate_profile_router, candidate_education_detail_router, candidate_resume_router
+from router import candidate_personal_information_router, candidate_job_information_router, candidate_job_history_router
+from router import candidate_resume_router, candidate_family_background_router, candidate_education_router
+from router import candidate_experience_detail_router, candidate_character_references_router, candidate_emergency_contact_router
 from router import company_profile_router, company_addition_info_router, company_subscription_router, payment_router
 from router import admin_profile_router, admin_login_router
 from router import session_info_router
 from router import job_post_router, job_additional_info_router, job_location_router, job_application_router
 from router import interview_info_router, employee_info_router, job_offer_router
 from router import request_form_router, for_HR_router, aws_files_router, company_legal_document_router
+from router import fetch_candidate_router
 
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
@@ -59,6 +62,7 @@ def verify_token(token: str, credentials_exception):
 
 
 # Include routers
+app.include_router(fetch_candidate_router.router)
 app.include_router(aws_files_router.router)
 app.include_router(for_HR_router.router)
 app.include_router(admin_login_router.router)
@@ -66,10 +70,15 @@ app.include_router(admin_profile_router.router)
 app.include_router(session_info_router.router)
 app.include_router(authentication.router)
 app.include_router(user_account_router.router)
-app.include_router(candidate_profile_router.router)
-app.include_router(candidate_education_detail_router.router)
-app.include_router(candidate_resume_router.router)
+app.include_router(candidate_personal_information_router.router)
+app.include_router(candidate_education_router.router)
 app.include_router(candidate_experience_detail_router.router)
+app.include_router(candidate_job_history_router.router)
+app.include_router(candidate_job_information_router.router)
+app.include_router(candidate_family_background_router.router)
+app.include_router(candidate_character_references_router.router)
+app.include_router(candidate_emergency_contact_router.router)
+app.include_router(candidate_resume_router.router)
 app.include_router(company_profile_router.router)
 app.include_router(company_addition_info_router.router)
 app.include_router(company_subscription_router.router)

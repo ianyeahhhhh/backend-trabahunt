@@ -3,10 +3,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # LOCAL
-# SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/trabahunt"
+# SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://postgres:admin@localhost/trabahunt-new"
 
 # RENDER
-SQLALCHEMY_DATABASE_URL = "postgresql://ian:yegDr39WRnHTleByuBkGniY67MD4ONfV@dpg-cf4uujo2i3mooklfb0tg-a.singapore-postgres.render.com/trabahunt_q16b"
+SQLALCHEMY_DATABASE_URL = "postgresql://ian:Dv8gf3RY7CgLLWFBdOQP7u1cd3h6JuUv@dpg-cfgh3f1gp3jjsed4tj40-a.singapore-postgres.render.com/trabahunt_zngz"
 
 
 # FORMAT

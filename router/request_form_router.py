@@ -28,7 +28,7 @@ async def get_one(id: int, db: Session = Depends(get_db)):
     return data
 
 
-#All Requests of a specific Employer
+# All Requests of a specific Employer
 @router.get('/all_requests/{id}')
 async def get_all_requests(id: int, db: Session = Depends(get_db)):
     data = db.query(Request_Form).filter(
@@ -39,16 +39,17 @@ async def get_all_requests(id: int, db: Session = Depends(get_db)):
 @router.post('/')
 async def create(req: Request_Form_Form, db: Session = Depends(get_db)):
     column = Request_Form(
-        user_account_id=req.user_account_id,
-        job_position=req.job_position,
-        job_specialization_name=req.job_specialization_name,
+        specialization=req.specialization,
+        department=req.department,
+        position=req.position,
+        employment_type=req.employment_type,
+        salary_range=req.salary_range,
         zip_code=req.zip_code,
         city=req.city,
         region=req.region,
         country=req.country,
-        salary_range=req.salary_range,
-        job_type_name=req.job_type_name,
-        status=req.status
+        status=req.status,
+        user_account_id=req.user_account_id
     )
     db.add(column)
     db.commit()
@@ -62,21 +63,18 @@ async def create(req: Request_Form_Form, db: Session = Depends(get_db)):
     return {
         'msg': 'Request Form info created.',
         'data': {
-            'request_id':column.request_id,
-            'user_account_id':column.user_account_id,
-            'job_position':column.job_position,
-            'job_specialization_name':column.job_specialization_name,
-            'zip_code':column.zip_code,
-            'city':column.city,
-            'region':column.region,
-            'country':column.country,
-            'salary_range':column.salary_range,
-            'job_type_name':column.job_type_name,
-            'status':column.status,
-            'created_by':column.created_by,
-            'created_at':column.created_at,
-            'updated_by':column.updated_by,
-            'updated_at':column.updated_at
+            'request_id': column.request_id,
+            'specialization': column.specialization,
+            'department': column.department,
+            'position': column.position,
+            'employment_type': column.employment_type,
+            'salary_range': column.salary_range,
+            'zip_code': column.zip_code,
+            'city': column.city,
+            'region': column.region,
+            'country': column.country,
+            'status': column.status,
+            'user_account_id': column.user_account_id
         }
     }
 
@@ -96,3 +94,62 @@ async def cancel(id: int, db: Session = Depends(get_db)):
     return {
         'msg': 'Request Cancellation error.'
     }
+
+
+@router.put('/to_pending/{id}')
+async def cancel(id: int, db: Session = Depends(get_db)):
+    column = db.query(Request_Form).filter(
+        Request_Form.request_id == id).first()
+
+    if column:
+        column.status = 'Pending'
+        db.commit()
+
+        return {
+            'msg': 'Request Sent to HR.'
+        }
+    return {
+        'msg': 'Request Error.'
+    }
+
+
+@router.put('/approve_request/{id}')
+async def cancel(id: int, db: Session = Depends(get_db)):
+    column = db.query(Request_Form).filter(
+        Request_Form.request_id == id).first()
+
+    if column:
+        column.status = 'Approved'
+        db.commit()
+
+        return {
+            'msg': 'Request Approved.'
+        }
+    return {
+        'msg': 'Request Error.'
+    }
+
+
+@router.put('/disapprove_request/{id}')
+async def cancel(id: int, db: Session = Depends(get_db)):
+    column = db.query(Request_Form).filter(
+        Request_Form.request_id == id).first()
+
+    if column:
+        column.status = 'Disapproved'
+        db.commit()
+
+        return {
+            'msg': 'Request Disapproved.'
+        }
+    return {
+        'msg': 'Request Error.'
+    }
+
+
+@router.get('/for_HR/')
+async def cancel(db: Session = Depends(get_db)):
+    column = db.query(Request_Form).filter(Request_Form.status != 'To be Reviewed').all()
+
+    return column
+

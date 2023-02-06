@@ -50,7 +50,7 @@ async def create(req: Employee_Info_Form, db: Session = Depends(get_db)):
         full_name=req.full_name,
         position=req.position,
         hired_by=req.hired_by,
-        candidate_id=req.candidate_id
+        candidate_personal_info_id=req.candidate_personal_info_id
     )
     db.add(column)
     db.commit()
@@ -65,7 +65,7 @@ async def create(req: Employee_Info_Form, db: Session = Depends(get_db)):
     return {
         'msg': 'Employee Hired ',
         'data': {
-            'candidate_id': column.candidate_id,
+            'candidate_personal_info_id': column.candidate_personal_info_id,
             'employee_id': column.employee_id,
             'full_name': column.full_name,
             'position': column.position,

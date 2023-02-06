@@ -30,7 +30,7 @@ async def get_one(id: int, db: Session = Depends(get_db)):
 @router.post('/')
 async def create(req: Interview_Info_Form, db: Session = Depends(get_db)):
     column = Interview_Info(
-        candidate_profile_id=req.candidate_profile_id,
+        candidate_personal_information_id=req.candidate_personal_information_id,
         interview_date=req.interview_date,
         interview_time=req.interview_time,
         interview_location=req.interview_location,
@@ -51,7 +51,7 @@ async def create(req: Interview_Info_Form, db: Session = Depends(get_db)):
         'msg': 'Job Application info added.',
         'data': {
             'interview_info_id': column.interview_info_id,
-            'candidate_profile_id': column.candidate_profile_id,
+            'candidate_personal_information_id': column.candidate_personal_informationl_information_id,
             'interview_date': column.interview_date,
             'interview_time': column.interview_time,
             'interview_location': column.interview_location,
@@ -68,7 +68,7 @@ async def create(id: int, req: Interview_Info_Form, db: Session = Depends(get_db
         Interview_Info.interview_info_id == id).first()
 
     if column:
-        column.candidate_profile_id = req.candidate_profile_id,
+        column.candidate_personal_information_id = req.candidate_personal_information_id,
         column.interview_date = req.interview_date,
         column.interview_time = req.interview_time,
         column.interview_location = req.interview_location,
@@ -82,7 +82,7 @@ async def create(id: int, req: Interview_Info_Form, db: Session = Depends(get_db
         return {
             'msg': 'Interview info updated.',
             'data': {
-                'candidate_profile_id': column.candidate_profile_id,
+                'candidate_personal_information_id': column.candidate_personal_information_id,
                 'interview_date': column.interview_date,
                 'interview_time': column.interview_time,
                 'interview_location': column.interview_location,
@@ -110,7 +110,7 @@ async def create(id: int, db: Session = Depends(get_db)):
             'msg': 'Candidate Hired.',
             'data': {
                 'job_application_id': column.interview_info_id,
-                'candidate_profile_id': column.candidate_profile_id
+                'candidate_personal_information_id': column.candidate_personal_information_id
             }
         }
 
@@ -132,7 +132,7 @@ async def create(id: int, db: Session = Depends(get_db)):
             'msg': 'Candidate Rejected.',
             'data': {
                 'job_application_id': column.interview_info_id,
-                'candidate_profile_id': column.candidate_profile_id
+                'candidate_personal_information_id': column.candidate_personal_information_id
             }
         }
 
@@ -154,7 +154,7 @@ async def create(id: int, db: Session = Depends(get_db)):
             'msg': 'Interview Cancelled.',
             'data': {
                 'job_application_id': column.interview_info_id,
-                'candidate_profile_id': column.candidate_profile_id
+                'candidate_personal_information_id': column.candidate_personal_information_id
             }
         }
 

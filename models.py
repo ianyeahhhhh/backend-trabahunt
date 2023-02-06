@@ -42,69 +42,6 @@ class User_Account(Base):
     updated_by = Column(Integer)
 
 
-class Candidate_Profile(Base):
-    __tablename__ = "candidate_profile"
-
-    candidate_profile_id = Column(Integer, primary_key=True, index=True)
-    candidate_type = Column(String(255))
-    first_name = Column(String(255))
-    middle_name = Column(String(255))
-    last_name = Column(String(255))
-    suffix_name = Column(String(255))
-    full_name = Column(String(255))
-    age = Column(Integer)
-    gender = Column(String(100))
-    birth_date = Column(String(100))
-    zip_code = Column(String(255))
-    city = Column(String(255))
-    region = Column(String(255))
-    country = Column(String(255))
-    nationality = Column(String(255))
-    review_status = Column(String(255))
-    candidate_image = Column(String(255))
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-
-    user_account_id = Column(Integer)
-    created_by = Column(Integer)
-    updated_by = Column(Integer)
-
-
-class Candidate_Education_Detail(Base):
-    __tablename__ = "candidate_education_detail"
-
-    candidate_education_detail_id = Column(
-        Integer, primary_key=True, index=True)
-    institute_university_name = Column(String(255))
-    highest_education_attainment = Column(String(255))
-    institute_university_location = Column(String(255))
-    field_of_study = Column(String(255))
-    major = Column(String(255))
-    graduation_date = Column(String(255))
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-
-    user_account_id = Column(Integer)
-    created_by = Column(Integer)
-    updated_by = Column(Integer)
-
-
-class Candidate_Experience_Detail(Base):
-    __tablename__ = "candidate_experience_detail"
-
-    candidate_experience_detail_id = Column(
-        Integer, primary_key=True, index=True)
-    experience_level = Column(String(255))
-    experience_description = Column(String(255))
-    year_month_work_experience = Column(String(255))
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-
-    user_account_id = Column(Integer)
-    created_by = Column(Integer)
-    updated_by = Column(Integer)
-
-
 class Candidate_Resume(Base):
     __tablename__ = "candidate_resume"
 
@@ -259,7 +196,7 @@ class Job_Application(Base):
     full_name = Column(String(255))
     email = Column(String(255))
     contact_number = Column(String(255))
-    candidate_id = Column(Integer)
+    candidate_personal_information_id = Column(Integer)
     employer_id = Column(Integer)
     job_application_status = Column(String(255), default='Pending')
     job_post_id = Column(Integer)
@@ -270,7 +207,7 @@ class Interview_Info(Base):
     __tablename__ = "interview_info"
 
     interview_info_id = Column(Integer, primary_key=True, index=True)
-    candidate_profile_id = Column(Integer)
+    candidate_personal_information_id = Column(Integer)
     interview_date = Column(String(255))
     interview_time = Column(String(255))
     interview_location = Column(String(255))
@@ -309,7 +246,7 @@ class Employee_Info(Base):
     __tablename__ = "employee_info"
 
     employee_id = Column(Integer, primary_key=True, index=True)
-    candidate_id = Column(Integer)
+    candidate_personal_information_id = Column(Integer)
     full_name = Column(String(255))
     position = Column(String(255))
     date_hired = Column(DateTime)
@@ -342,16 +279,18 @@ class Request_Form(Base):
     __tablename__ = "request_form"
 
     request_id = Column(Integer, primary_key=True, index=True)
-    user_account_id = Column(Integer)
-    job_position = Column(String(255))
-    job_specialization_name = Column(String(255))
+    specialization = Column(String(255))
+    department = Column(String(255))
+    position = Column(String(255))
+    employment_type = Column(String(255))
+    salary_range = Column(String(255))
     zip_code = Column(String(255))
     city = Column(String(255))
     region = Column(String(255))
     country = Column(String(255))
-    salary_range = Column(String(255))
-    job_type_name = Column(String(255))
     status = Column(String(255))
+
+    user_account_id = Column(Integer)
     created_by = Column(Integer)
     updated_by = Column(Integer)
     created_at = Column(DateTime)
@@ -360,3 +299,162 @@ class Request_Form(Base):
 #
 #
 # new candidate fields :(
+
+class Candidate_Personal_Information(Base):
+    __tablename__ = "candidate_personal_information"
+
+    candidate_personal_information_id = Column(Integer, primary_key=True, index=True)
+    candidate_type = Column(String(255))
+    first_name = Column(String(255))
+    middle_name = Column(String(255))
+    last_name = Column(String(255))
+    suffix_name = Column(String(255))
+    email = Column(String(255))
+    birth_date = Column(String(255))
+    sex = Column(String(255))
+    block_number = Column(String(255))
+    lot_number = Column(String(255))
+    street = Column(String(255))
+    barangay = Column(String(255))
+    city = Column(String(255))
+    zip_code = Column(String(255))
+    region = Column(String(255))
+    country = Column(String(255))
+    nationality = Column(String(255))
+    civil_status = Column(String(255))
+    review_status = Column(String(255))
+    candidate_image = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+class Candidate_Job_Information(Base):
+    __tablename__ = "candidate_job_information"
+
+    candidate_job_information_id = Column(Integer, primary_key=True, index=True)
+    department = Column(String(255))
+    position = Column(String(255))
+    employee_category = Column(String(255))
+    employment_type = Column(String(255))
+    specialization = Column(String(255))
+    date_hired = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+class Candidate_Job_History(Base):
+    __tablename__ = "candidate_job_history"
+
+    candidate_job_history_id = Column(Integer, primary_key=True, index=True)
+    previous_job_title = Column(String(255))
+    employer = Column(String(255))
+    start_date = Column(String(255))
+    end_date = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+class Candidate_Education(Base):
+    __tablename__ = "candidate_education"
+
+    candidate_education_id = Column(Integer, primary_key=True, index=True)
+    highest_educational_attainment = Column(String(255))
+    institute_name = Column(String(255))
+    institute_location = Column(String(255))
+    field_of_study = Column(String(255))
+    major = Column(String(255))
+    date_graduated = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+class Candidate_Family_Background(Base):
+    __tablename__ = "candidate_family_background"
+
+    candidate_family_background_id = Column(Integer, primary_key=True, index=True)
+    mothers_name = Column(String(255))
+    # mothers_first_name = Column(String(255))
+    # mothers_middle_name = Column(String(255))
+    # mothers_last_name = Column(String(255))
+    mothers_occupation = Column(String(255))
+    mothers_birth_date = Column(String(255))
+    fathers_name = Column(String(255))
+    # fathers_first_name = Column(String(255))
+    # fathers_middle_name = Column(String(255))
+    # fathers_last_name = Column(String(255))
+    fathers_occupation = Column(String(255))
+    fathers_birth_date = Column(String(255))
+    number_of_siblings = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+class Candidate_Experience_Detail(Base):
+    __tablename__ = "candidate_experience_detail"
+
+    candidate_experience_detail_id = Column(Integer, primary_key=True, index=True)
+    experience_level = Column(String(255))
+    work_experience = Column(String(255))
+    personal_skills = Column(String(255))
+    achievements = Column(String(255))
+    certification = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+class Candidate_Character_References(Base):
+    __tablename__ = "candidate_character_references"
+
+    candidate_character_references_id = Column(Integer, primary_key=True, index=True)
+    char_ref_name_1 = Column(String(255))
+    position_1 = Column(String(255))
+    telephone_1 = Column(String(255))
+    company_1 = Column(String(255))
+    char_ref_name_2 = Column(String(255))
+    position_2 = Column(String(255))
+    telephone_2 = Column(String(255))
+    company_2 = Column(String(255))
+    char_ref_name_3 = Column(String(255))
+    position_3 = Column(String(255))
+    telephone_3 = Column(String(255))
+    company_3 = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+
+class Candidate_Emergency_Contact(Base):
+    __tablename__ = "candidate_emergency_contact"
+
+    candidate_emergency_contact_id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255))
+    relationship = Column(String(255))
+    contact_number = Column(String(255))
+    address = Column(String(255))
+
+    user_account_id = Column(Integer)
+    created_by = Column(Integer)
+    updated_by = Column(Integer)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
+

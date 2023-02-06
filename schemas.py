@@ -28,51 +28,6 @@ class User_Account_Form(BaseModel):
         orm_mode = True
 
 
-class Candidate_Profile_Form(BaseModel):
-    user_account_id: int
-    candidate_type: str
-    first_name: str
-    middle_name: str
-    last_name: str
-    suffix_name: str
-    age: int
-    gender: str
-    birth_date: str
-    zip_code: str
-    city: str
-    region: str
-    country: str
-    nationality: str
-    candidate_image: str
-    review_status: str
-
-    class Config:
-        orm_mode = True
-
-
-class Candidate_Education_Detail_Form(BaseModel):
-    user_account_id: int
-    institute_university_name: str
-    highest_education_attainment: str
-    institute_university_location: str
-    field_of_study: str
-    major: str
-    graduation_date: str
-
-    class Config:
-        orm_mode = True
-
-
-class Candidate_Experience_Detail_Form(BaseModel):
-    user_account_id: int
-    experience_level: str
-    experience_description: str
-    year_month_work_experience: str
-
-    class Config:
-        orm_mode = True
-
-
 class Candidate_Resume_Form(BaseModel):
     user_account_id: int
     resume: str
@@ -166,7 +121,7 @@ class Job_Location_Form(BaseModel):
 
 
 class Interview_Info_Form(BaseModel):
-    candidate_profile_id: int
+    candidate_personal_information_id: int
     interview_date: str
     interview_time: str
     interview_location: str
@@ -241,16 +196,17 @@ class Session_Info_Form(BaseModel):
 
 
 class Request_Form_Form(BaseModel):
-    user_account_id: int
-    job_position: str
-    job_specialization_name: str
+    specialization: str
+    department: str
+    position: str
+    employment_type: str
+    salary_range: str
     zip_code: str
     city: str
     region: str
     country: str
-    salary_range: str
-    job_type_name: str
     status: str
+    user_account_id: int
 
     class Config:
         orm_mode = True
@@ -276,3 +232,90 @@ class TokenData(BaseModel):
 ##
 ##
 # new candidate
+class Candidate_Personal_Information_Form(BaseModel):
+    candidate_type: str
+    first_name: str
+    middle_name: str
+    last_name: str
+    suffix_name: str
+    email: str
+    birth_date: str
+    sex: str
+    block_number: str
+    lot_number: str
+    street: str
+    barangay: str
+    city: str
+    zip_code: str
+    region: str
+    country: str
+    nationality: str
+    civil_status: str
+    review_status: str
+    candidate_image: str
+    user_account_id: int
+
+class Candidate_Job_Information_Form(BaseModel):
+    department: str
+    position: str
+    employee_category: str
+    employment_type: str
+    specialization: str
+    date_hired: str
+    user_account_id: int
+
+class Candidate_Job_History_Form(BaseModel):
+    previous_job_title: str
+    employer: str
+    start_date: str
+    end_date: str
+    user_account_id: int
+
+class Candidate_Education_Form(BaseModel):
+    highest_educational_attainment: str
+    institute_name: str
+    institute_location: str
+    field_of_study: str
+    major: str
+    date_graduated: str
+    user_account_id: int
+
+class Candidate_Family_Background_Form(BaseModel):
+    mothers_name: str
+    mothers_occupation: str
+    mothers_birth_date: str
+    fathers_name: str
+    fathers_occupation: str
+    fathers_birth_date: str
+    number_of_siblings: str
+    user_account_id: int
+
+class Candidate_Experience_Detail_Form(BaseModel):
+    experience_level: str
+    work_experience: str
+    personal_skills: str
+    achievements: str
+    certification: str
+    user_account_id: int
+
+class Candidate_Character_References_Form(BaseModel):
+    char_ref_name_1: str
+    position_1: str
+    telephone_1: str
+    company_1: str
+    char_ref_name_2: str
+    position_2: str
+    telephone_2: str
+    company_2: str
+    char_ref_name_3: str
+    position_3: str
+    telephone_3: str
+    company_3: str
+    user_account_id: int
+
+class Candidate_Emergency_Contact_Form(BaseModel):
+    name: str
+    relationship: str
+    contact_number: str
+    address: str
+    user_account_id: int
