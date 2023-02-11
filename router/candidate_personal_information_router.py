@@ -54,6 +54,7 @@ async def create(req: Candidate_Personal_Information_Form, db: Session = Depends
         civil_status=req.civil_status,
         review_status=req.review_status,
         candidate_image=req.candidate_image,
+        hired_by=req.hired_by,
         user_account_id=req.user_account_id
     )
     db.add(column)
@@ -88,6 +89,7 @@ async def create(req: Candidate_Personal_Information_Form, db: Session = Depends
             'civil_status': column.civil_status,
             'review_status': column.review_status,
             'candidate_image': column.candidate_image,
+            'hired_by': column.hired_by,
             'user_account_id': column.user_account_id,
             'created_by': column.created_by,
             'created_at': column.created_at,
@@ -124,6 +126,7 @@ async def update(id: int, req: Candidate_Personal_Information_Form, db: Session 
         column.civil_status = req.civil_status
         column.review_status = req.review_status
         column.candidate_image = req.candidate_image
+        column.hired_by = req.hired_by
         column.user_account_id = req.user_account_id
         db.commit()
 
@@ -156,6 +159,7 @@ async def update(id: int, req: Candidate_Personal_Information_Form, db: Session 
                 'civil_status': column.civil_status,
                 'review_status': column.review_status,
                 'candidate_image': column.candidate_image,
+                'hired_by': column.hired_by,
                 'user_account_id': column.user_account_id,
                 'created_by': column.created_by,
                 'created_at': column.created_at,
@@ -204,3 +208,43 @@ async def grantAccess(id: int, db: Session = Depends(get_db)):
     return {
         'msg': 'candidate not found'
     }
+
+
+@router.get('/all_possible_job_offer/')
+async def for_job_offers(db: Session = Depends(get_db)):
+    column = db.query(Candidate_Personal_Information).filter(
+        Candidate_Personal_Information.candidate_type == 'Direct Hire').all()
+
+    return column
+
+
+@router.get('/for_hr_all_not_hired/')
+async def all_not_hired(db: Session = Depends(get_db)):
+    column = db.query(Candidate_Personal_Information).filter(Candidate_Personal_Information.candidate_type ==
+                                                             'Agency').filter(Candidate_Personal_Information.hired_by == 0).all()
+
+    return column
+
+
+@router.put('/for_hr_hire_candidate/{id}')
+async def hire_candidate(id: int, req: int, db: Session = Depends(get_db)):
+    column = db.query(Candidate_Personal_Information).filter(
+        Candidate_Personal_Information.user_account_id == id).first()
+
+    if column:
+        column.hired_by = req
+        db.commit()
+
+        return {
+            'msg': 'Candidate Hired',
+            'data': {
+                'first_name': column.first_name,
+                'middle_name': column.middle_name,
+                'last_name': column.last_name,
+                'suffix_name': column.suffix_name,
+                'email': column.email,
+                'hired_by': column.hired_by,
+            }
+        }
+    
+    return 'Candidate does not exist'

@@ -72,7 +72,7 @@ async def get_all_pending(id: int, db: Session = Depends(get_db)):
 # GET ALL PENDING JOB APPS FOR A SPECIFIC CANDIDATE
 @router.get('/all/pending_candidate/{id}')
 async def get_all_pending_candidate(id: int, db: Session = Depends(get_db)):
-    data = db.query(Job_Application).filter(Job_Application.candidate_id == id).filter(
+    data = db.query(Job_Application).filter(Job_Application.candidate_personal_information_id == id).filter(
         Job_Application.job_application_status == 'Pending').all()
     return data
 
@@ -80,7 +80,7 @@ async def get_all_pending_candidate(id: int, db: Session = Depends(get_db)):
 # GET ALL ACCEPTED JOB APPS FOR A SPECIFIC CANDIDATE
 @router.get('/all/accepted_candidate/{id}')
 async def get_all_accepted_candidate(id: int, db: Session = Depends(get_db)):
-    data = db.query(Job_Application).filter(Job_Application.candidate_id == id).filter(
+    data = db.query(Job_Application).filter(Job_Application.candidate_personal_information_id == id).filter(
         Job_Application.job_application_status == 'Accepted').all()
     return data
 
@@ -88,7 +88,7 @@ async def get_all_accepted_candidate(id: int, db: Session = Depends(get_db)):
 # GET ALL REJECTED JOB APPS FOR A SPECIFIC CANDIDATE
 @router.get('/all/rejected_candidate/{id}')
 async def get_all_rejected_candidate(id: int, db: Session = Depends(get_db)):
-    data = db.query(Job_Application).filter(Job_Application.candidate_id == id).filter(
+    data = db.query(Job_Application).filter(Job_Application.candidate_personal_information_id == id).filter(
         Job_Application.job_application_status == 'Rejected').all()
     return data
 
@@ -104,7 +104,7 @@ async def get_all_except_pending(id: int, db: Session = Depends(get_db)):
 # GET ALL NON-PENDING JOB APPS FOR A SPECIFIC COMPANY
 @router.get('/all/except_pending_candidate/{id}')
 async def get_all_except_pending_candidate(id: int, db: Session = Depends(get_db)):
-    data = db.query(Job_Application).filter(Job_Application.candidate_id == id).filter(
+    data = db.query(Job_Application).filter(Job_Application.candidate_personal_information_id == id).filter(
         Job_Application.job_application_status != 'Pending').all()
     return data
 
@@ -116,7 +116,7 @@ async def create(req: Job_Application_Form, db: Session = Depends(get_db)):
         full_name=req.full_name,
         email=req.email,
         contact_number=req.contact_number,
-        candidate_id=req.candidate_id,
+        candidate_personal_information_id=req.candidate_personal_information_id,
         employer_id=req.employer_id,
         job_post_id=req.job_post_id,
         created_at=datetime.now()
@@ -130,7 +130,7 @@ async def create(req: Job_Application_Form, db: Session = Depends(get_db)):
             'full_name': column.full_name,
             'email': column.email,
             'contact_number': column.contact_number,
-            'candidate_id': column.candidate_id,
+            'candidate_personal_information_id': column.candidate_personal_information_id,
             'employer_id': column.employer_id,
             'job_application_id': column.job_application_id,
             'job_post_id': column.job_post_id
@@ -157,7 +157,7 @@ async def update(id: int, req: Job_Application_Form, db: Session = Depends(get_d
                 'full_name': column.full_name,
                 'email': column.email,
                 'contact_number': column.contact_number,
-                'candidate_id': column.candidate_id,
+                'candidate_personal_information_id': column.candidate_personal_information_id,
                 'employer_id': column.employer_id,
                 'job_application_id': column.job_application_id,
                 'job_application_status': column.job_application_status
@@ -184,7 +184,7 @@ async def update(id: int, db: Session = Depends(get_db)):
                 'full_name': column.full_name,
                 'email': column.email,
                 'contact_number': column.contact_number,
-                'candidate_id': column.candidate_id,
+                'candidate_personal_information_id': column.candidate_personal_information_id,
                 'employer_id': column.employer_id,
                 'job_application_id': column.job_application_id,
                 'job_application_status': column.job_application_status
@@ -211,7 +211,7 @@ async def update(id: int, db: Session = Depends(get_db)):
                 'full_name': column.full_name,
                 'email': column.email,
                 'contact_number': column.contact_number,
-                'candidate_id': column.candidate_id,
+                'candidate_personal_information_id': column.candidate_personal_information_id,
                 'employer_id': column.employer_id,
                 'job_application_id': column.job_application_id,
                 'job_application_status': column.job_application_status
@@ -238,7 +238,7 @@ async def remove(id: int, db: Session = Depends(get_db)):
                 'full_name': column.full_name,
                 'email': column.email,
                 'contact_number': column.contact_number,
-                'candidate_id': column.candidate_id,
+                'candidate_personal_information_id': column.candidate_personal_information_id,
                 'job_application_id': column.job_application_id
             }
         }

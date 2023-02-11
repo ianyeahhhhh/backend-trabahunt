@@ -140,7 +140,7 @@ class Job_Application_Form(BaseModel):
     email: str
     contact_number: str
     job_application_status: str
-    candidate_id: int
+    candidate_personal_information_id: int
     employer_id: int
     job_post_id: int
 
@@ -152,7 +152,7 @@ class Employee_Info_Form(BaseModel):
     full_name: str
     position: str
     hired_by: int
-    candidate_id: str
+    candidate_personal_information_id: str
 
     class Config:
         orm_mode = True
@@ -196,6 +196,7 @@ class Session_Info_Form(BaseModel):
 
 
 class Request_Form_Form(BaseModel):
+    company_name: str
     specialization: str
     department: str
     position: str
@@ -253,6 +254,7 @@ class Candidate_Personal_Information_Form(BaseModel):
     civil_status: str
     review_status: str
     candidate_image: str
+    hired_by: int
     user_account_id: int
 
 class Candidate_Job_Information_Form(BaseModel):

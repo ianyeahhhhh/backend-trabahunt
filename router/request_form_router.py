@@ -39,6 +39,7 @@ async def get_all_requests(id: int, db: Session = Depends(get_db)):
 @router.post('/')
 async def create(req: Request_Form_Form, db: Session = Depends(get_db)):
     column = Request_Form(
+        company_name=req.company_name,
         specialization=req.specialization,
         department=req.department,
         position=req.position,
@@ -63,6 +64,7 @@ async def create(req: Request_Form_Form, db: Session = Depends(get_db)):
     return {
         'msg': 'Request Form info created.',
         'data': {
+            'company_name': column.company_name,
             'request_id': column.request_id,
             'specialization': column.specialization,
             'department': column.department,

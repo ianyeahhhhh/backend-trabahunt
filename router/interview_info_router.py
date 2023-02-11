@@ -48,10 +48,10 @@ async def create(req: Interview_Info_Form, db: Session = Depends(get_db)):
     db.commit()
 
     return {
-        'msg': 'Job Application info added.',
+        'msg': 'Interview info added.',
         'data': {
             'interview_info_id': column.interview_info_id,
-            'candidate_personal_information_id': column.candidate_personal_informationl_information_id,
+            'candidate_personal_information_id': column.candidate_personal_information_id,
             'interview_date': column.interview_date,
             'interview_time': column.interview_time,
             'interview_location': column.interview_location,

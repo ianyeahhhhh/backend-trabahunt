@@ -21,6 +21,7 @@ async def get_one_for_employer(id: int, db: Session = Depends(get_db)):
     return data
 
 
+# logged in: candidate. // all job offered to a specific candidate
 @router.get('/all_for_candidate/{id}')
 async def get_all_for_candidate(id: int, db: Session = Depends(get_db)):
     data = db.query(Job_Offer).filter(Job_Offer.offered_to == id).all()

@@ -279,6 +279,7 @@ class Request_Form(Base):
     __tablename__ = "request_form"
 
     request_id = Column(Integer, primary_key=True, index=True)
+    company_name = Column(String(255))
     specialization = Column(String(255))
     department = Column(String(255))
     position = Column(String(255))
@@ -324,6 +325,7 @@ class Candidate_Personal_Information(Base):
     civil_status = Column(String(255))
     review_status = Column(String(255))
     candidate_image = Column(String(255))
+    hired_by = Column(Integer)
 
     user_account_id = Column(Integer)
     created_by = Column(Integer)
