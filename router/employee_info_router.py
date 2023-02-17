@@ -50,6 +50,7 @@ async def create(req: Employee_Info_Form, db: Session = Depends(get_db)):
         full_name=req.full_name,
         position=req.position,
         hired_by=req.hired_by,
+        date_hired=datetime.now(),
         candidate_personal_information_id=req.candidate_personal_information_id
     )
     db.add(column)
@@ -70,6 +71,7 @@ async def create(req: Employee_Info_Form, db: Session = Depends(get_db)):
             'full_name': column.full_name,
             'position': column.position,
             'hired_by': column.hired_by,
+            'date_hired': column.date_hired,
             'created_by': column.hired_by,
             'updated_by': column.hired_by,
             'hired_by': column.hired_by,

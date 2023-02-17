@@ -117,6 +117,7 @@ async def create(req: Job_Application_Form, db: Session = Depends(get_db)):
         email=req.email,
         contact_number=req.contact_number,
         candidate_personal_information_id=req.candidate_personal_information_id,
+        interview_info_id=req.interview_info_id,
         employer_id=req.employer_id,
         job_post_id=req.job_post_id,
         created_at=datetime.now()
@@ -132,6 +133,7 @@ async def create(req: Job_Application_Form, db: Session = Depends(get_db)):
             'contact_number': column.contact_number,
             'candidate_personal_information_id': column.candidate_personal_information_id,
             'employer_id': column.employer_id,
+            'interview_info_id': column.interview_info_id,
             'job_application_id': column.job_application_id,
             'job_post_id': column.job_post_id
         }
@@ -186,6 +188,7 @@ async def update(id: int, db: Session = Depends(get_db)):
                 'contact_number': column.contact_number,
                 'candidate_personal_information_id': column.candidate_personal_information_id,
                 'employer_id': column.employer_id,
+                'interview_info_id': column.interview_info_id,
                 'job_application_id': column.job_application_id,
                 'job_application_status': column.job_application_status
             }
@@ -213,6 +216,7 @@ async def update(id: int, db: Session = Depends(get_db)):
                 'contact_number': column.contact_number,
                 'candidate_personal_information_id': column.candidate_personal_information_id,
                 'employer_id': column.employer_id,
+                'interview_info_id': column.interview_info_id,
                 'job_application_id': column.job_application_id,
                 'job_application_status': column.job_application_status
             }
@@ -239,7 +243,8 @@ async def remove(id: int, db: Session = Depends(get_db)):
                 'email': column.email,
                 'contact_number': column.contact_number,
                 'candidate_personal_information_id': column.candidate_personal_information_id,
-                'job_application_id': column.job_application_id
+                'job_application_id': column.job_application_id,
+                'interview_info_id': column.interview_info_id,
             }
         }
 
@@ -247,3 +252,9 @@ async def remove(id: int, db: Session = Depends(get_db)):
         'msg': 'Job Application cannot be found'
     }
 
+#MOST RECENT JOB APP order_by(User_Account.created_at.desc())
+@router.get('/most_recent/{id}')
+async def get_one(id: int, db: Session = Depends(get_db)):
+    data = db.query(Job_Application).filter(
+        Job_Application.employer_id == id).filter(Job_Application.job_application_status == 'For Interview').order_by(Job_Application.created_at.desc()).first()
+    return data

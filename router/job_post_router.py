@@ -36,6 +36,22 @@ async def get_all_pending(db: Session = Depends(get_db)):
     return data
 
 
+# FOR ALL ACCEPTED JOB ADS (FOR ADMIN)
+@router.get('/all/accepted')
+async def get_all_pending(db: Session = Depends(get_db)):
+    data = db.query(Job_Post).filter(
+        Job_Post.job_post_status == 'Accepted').all()
+    return data
+
+
+# FOR ALL REJECTED JOB ADS (FOR ADMIN)
+@router.get('/all/rejected')
+async def get_all_pending(db: Session = Depends(get_db)):
+    data = db.query(Job_Post).filter(
+        Job_Post.job_post_status == 'Rejected').all()
+    return data
+
+
 # FOR ALL NON-PENDING JOB ADS (FOR ADMIN)
 @router.get('/all/except_pending')
 async def get_all_with_user(db: Session = Depends(get_db)):

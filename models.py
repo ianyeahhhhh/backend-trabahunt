@@ -199,6 +199,7 @@ class Job_Application(Base):
     candidate_personal_information_id = Column(Integer)
     employer_id = Column(Integer)
     job_application_status = Column(String(255), default='Pending')
+    interview_info_id = Column(Integer)
     job_post_id = Column(Integer)
     created_at = Column(DateTime)
 
@@ -249,7 +250,7 @@ class Employee_Info(Base):
     candidate_personal_information_id = Column(Integer)
     full_name = Column(String(255))
     position = Column(String(255))
-    date_hired = Column(DateTime)
+    date_hired = Column(String(255))
     hired_by = Column(Integer)
     created_by = Column(Integer)
     updated_by = Column(Integer)
