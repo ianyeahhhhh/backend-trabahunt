@@ -157,6 +157,6 @@ async def cancel(db: Session = Depends(get_db)):
 
 @router.get('/for_HR_approved_and_disapproved/')
 async def cancel(db: Session = Depends(get_db)):
-    column = db.query(Request_Form).filter(Request_Form.status != 'To be Reviewed' or Request_Form.status != "Pending").all()
+    column = db.query(Request_Form).filter(Request_Form.status != 'To be Reviewed' and Request_Form.status != "Pending").all()
 
     return column
