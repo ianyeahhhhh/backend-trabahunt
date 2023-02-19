@@ -161,3 +161,17 @@ async def create(id: int, db: Session = Depends(get_db)):
     return {
         'msg': 'Interview Info cannot be found'
     }
+
+
+@router.get('/employer_side_most_recent/{id}')
+async def get_one(id: int, db: Session = Depends(get_db)):
+    data = db.query(Interview_Info).filter(
+        Interview_Info.created_by == id).filter(Interview_Info.interview_status == 'Pending').order_by(Interview_Info.created_at.desc()).first()
+    return data
+
+
+@router.get('/candidate_side_most_recent/{id}')
+async def get_one(id: int, db: Session = Depends(get_db)):
+    data = db.query(Interview_Info).filter(
+        Interview_Info.candidate_personal_information_id == id).filter(Interview_Info.interview_status == 'Pending').order_by(Interview_Info.created_at.desc()).first()
+    return data

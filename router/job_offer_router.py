@@ -211,3 +211,10 @@ async def reject(id: int, db: Session = Depends(get_db)):
                 'company_id': column.company_id
             }
         }
+
+
+@router.get('/most_recent/{id}')
+async def get_all(id: int, db: Session = Depends(get_db)):
+    data = db.query(Job_Offer).filter(
+        Job_Offer.offered_to == id).filter(Job_Offer.job_offer_status == 'Pending').order_by(Job_Offer.created_at.desc()).first()
+    return data

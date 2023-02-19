@@ -13,6 +13,10 @@ router = APIRouter(
     tags=['Employee_Info']
 )
 
+@router.get('/one/{id}')
+async def get_all(id: int, db: Session = Depends(get_db)):
+    data = db.query(Employee_Info).filter(Employee_Info.candidate_personal_information_id == id).all()
+    return data
 
 # GET ALL EMPLOYEE INFO
 @router.get('/')
